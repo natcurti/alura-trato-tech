@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 /* eslint-disable react/prop-types */
 import styles from "./Item.module.scss";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -12,7 +13,7 @@ const iconeProps = {
 
 const Item = ({ titulo, foto, preco, descricao, favorito, id }) => {
   const dispatch = useDispatch();
-  const resolverFavorito = () => {
+  const favoritar = () => {
     dispatch(mudarFavorito(id));
   };
 
@@ -34,13 +35,13 @@ const Item = ({ titulo, foto, preco, descricao, favorito, id }) => {
                 {...iconeProps}
                 color="#ff0000"
                 className={styles["item-acao"]}
-                onClick={resolverFavorito}
+                onClick={favoritar}
               />
             ) : (
               <AiOutlineHeart
                 {...iconeProps}
                 className={styles["item-acao"]}
-                onClick={resolverFavorito}
+                onClick={favoritar}
               />
             )}
             <FaCartPlus
