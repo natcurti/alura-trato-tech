@@ -3,8 +3,8 @@
 import styles from "./Item.module.scss";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaCartPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 import { mudarFavorito } from "src/store/reducers/itens";
+import { useDispatch } from "react-redux";
 
 const iconeProps = {
   size: 24,
@@ -13,6 +13,7 @@ const iconeProps = {
 
 const Item = ({ titulo, foto, preco, descricao, favorito, id }) => {
   const dispatch = useDispatch();
+
   const favoritar = () => {
     dispatch(mudarFavorito(id));
   };

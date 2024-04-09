@@ -26,7 +26,7 @@ import caixaSomBluetooth from "src/assets/itens/caixa-som-bluetooth.png";
 import miniSystem from "src/assets/itens/mini-system.png";
 import tablet from "src/assets/itens/tablet.png";
 
-const initialState = [
+const estadoInicial = [
   {
     titulo: "Assistente virtual",
     descricao:
@@ -281,7 +281,7 @@ const initialState = [
 
 const itensSlice = createSlice({
   name: "itens",
-  initialState,
+  initialState: estadoInicial,
   reducers: {
     mudarFavorito: (state, { payload }) => {
       state = state.map((item) => {
