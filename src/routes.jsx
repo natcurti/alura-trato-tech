@@ -3,6 +3,7 @@ import PaginaPadrao from "./components/PaginaPadrao";
 import Home from "./pages/Home";
 import Categoria from "./pages/Categoria";
 import Carrinho from "./pages/Carrinho";
+import Anuncie from "./pages/Anuncie";
 
 const Router = () => {
   return (
@@ -10,8 +11,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<PaginaPadrao />}>
           <Route index element={<Home />} />
-          <Route path="/categoria/:nomeCategoria" element={<Categoria />} />
-          <Route path="/carrinho" element={<Carrinho />} />
+          <Route path="categoria/:nomeCategoria" element={<Categoria />} />
+          <Route path="carrinho" element={<Carrinho />} />
+          <Route path="anuncie" element={<Anuncie />} />
         </Route>
       </Routes>
     </BrowserRouter>
