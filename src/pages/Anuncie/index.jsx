@@ -1,18 +1,27 @@
 import Header from "src/components/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Anuncie.module.scss";
 import Button from "src/components/Button";
 import { useForm } from "react-hook-form";
+import { cadastrarItem } from "src/store/reducers/itens";
 
 const Anuncie = () => {
+  const dispatch = useDispatch();
   const categorias = useSelector((state) =>
     state.categorias.map(({ nome, id }) => ({ nome, id }))
   );
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: {
+      categoria: "",
+    },
+  });
 
-  const cadastrar = (param) => {
-    console.log(param);
+  const { errors } = formState;
+  console.log(errors);
+
+  const cadastrar = (data) => {
+    dispatch(cadastrarItem(data));
   };
 
   return (
@@ -23,21 +32,51 @@ const Anuncie = () => {
       />
       <form className={styles.formulario} onSubmit={handleSubmit(cadastrar)}>
         <input
-          {...register("nome")}
+          className={errors.nome ? styles["input-erro"] : ""}
+          {...register("nome", { required: "O campo de nome é obrigatório" })}
           placeholder="Nome do produto"
           alt="nome do produto"
         />
+        {errors.nome && (
+          <span className={styles["mensagem-erro"]}>
+            {" "}
+            {errors.nome.message}{" "}
+          </span>
+        )}
         <input
-          {...register("descricao")}
+          className={errors.descricao ? styles["input-erro"] : ""}
+          {...register("descricao", {
+            required: "O campo de descrição é obrigatório",
+          })}
           placeholder="Descrição do produto"
           alt="descrição do produto"
         />
+        {errors.descricao && (
+          <span className={styles["mensagem-erro"]}>
+            {" "}
+            {errors.descricao.message}{" "}
+          </span>
+        )}
         <input
-          {...register("imagem")}
+          className={errors.imagem ? styles["input-erro"] : ""}
+          {...register("imagem", {
+            required: "O campo de imagem é obrigatório",
+          })}
           placeholder="URL da imagem do produto"
           alt="URL da imagem do produto"
         />
-        <select {...register("categoria")}>
+        {errors.imagem && (
+          <span className={styles["mensagem-erro"]}>
+            {" "}
+            {errors.imagem.message}{" "}
+          </span>
+        )}
+        <select
+          className={errors.categoria ? styles["input-erro"] : ""}
+          {...register("categoria", {
+            required: "O campo de categoria é obrigatório",
+          })}
+        >
           <option value="" disabled>
             Selecione a categoria
           </option>
@@ -47,11 +86,24 @@ const Anuncie = () => {
             </option>
           ))}
         </select>
+        {errors.categoria && (
+          <span className={styles["mensagem-erro"]}>
+            {" "}
+            {errors.categoria.message}{" "}
+          </span>
+        )}
         <input
-          {...register("preco")}
+          className={errors.preco ? styles["input-erro"] : ""}
+          {...register("preco", { required: "O campo de preço é obrigatório" })}
           type="number"
           placeholder="Preço do produto"
         />
+        {errors.preco && (
+          <span className={styles["mensagem-erro"]}>
+            {" "}
+            {errors.preco.message}{" "}
+          </span>
+        )}
         <Button type="submit">Cadastrar produto</Button>
       </form>
     </div>
