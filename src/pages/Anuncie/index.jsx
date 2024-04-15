@@ -5,6 +5,7 @@ import Button from "src/components/Button";
 import { useForm } from "react-hook-form";
 import { cadastrarItem } from "src/store/reducers/itens";
 import { useParams } from "react-router-dom";
+import Input from "src/components/Input";
 
 const Anuncie = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Anuncie = () => {
         descricao="Anuncie seu produto no melhor site do Brasil!"
       />
       <form className={styles.formulario} onSubmit={handleSubmit(cadastrar)}>
-        <input
+        <Input
           className={errors.titulo ? styles["input-erro"] : ""}
           {...register("titulo", { required: "O campo de nome é obrigatório" })}
           placeholder="Nome do produto"
@@ -45,7 +46,7 @@ const Anuncie = () => {
             {errors.titulo.message}{" "}
           </span>
         )}
-        <input
+        <Input
           className={errors.descricao ? styles["input-erro"] : ""}
           {...register("descricao", {
             required: "O campo de descrição é obrigatório",
@@ -59,7 +60,7 @@ const Anuncie = () => {
             {errors.descricao.message}{" "}
           </span>
         )}
-        <input
+        <Input
           className={errors.foto ? styles["input-erro"] : ""}
           {...register("foto", {
             required: "O campo de imagem é obrigatório",
@@ -95,7 +96,7 @@ const Anuncie = () => {
             {errors.categoria.message}{" "}
           </span>
         )}
-        <input
+        <Input
           className={errors.preco ? styles["input-erro"] : ""}
           {...register("preco", {
             required: "O campo de preço é obrigatório",
