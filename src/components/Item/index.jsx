@@ -8,9 +8,14 @@ import {
   AiFillPlusCircle,
   AiOutlineCheck,
   AiFillEdit,
+  AiFillCloseCircle,
 } from "react-icons/ai";
 import { FaCartPlus } from "react-icons/fa";
-import { mudarFavorito, mudarItem } from "src/store/reducers/itens";
+import {
+  deletarItem,
+  mudarFavorito,
+  mudarItem,
+} from "src/store/reducers/itens";
 import { useDispatch, useSelector } from "react-redux";
 import { mudarCarrinho, mudarQuantidade } from "src/store/reducers/carrinho";
 import classNames from "classnames";
@@ -79,6 +84,11 @@ const Item = ({
         [styles.itemNoCarrinho]: carrinho,
       })}
     >
+      <AiFillCloseCircle
+        {...iconeProps}
+        className={`${styles["item-acao"]} ${styles["item-deletar"]}`}
+        onClick={() => dispatch(deletarItem(id))}
+      />
       <div className={styles["item-imagem"]}>
         <img src={foto} alt={titulo} />
       </div>
