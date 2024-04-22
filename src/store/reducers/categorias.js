@@ -19,17 +19,17 @@ const categoriasSlice = createSlice({
         toast({
           title: "Sucesso!",
           description: "Categorias carregadas com sucesso.",
-          duration: 2000,
+          duration: 1000,
           isClosable: true,
           status: "success",
         });
-        state.push(...payload);
+        return payload;
       })
       .addCase(buscarCategorias.pending, (state, { payload }) => {
         toast({
           title: "Carregando",
           description: "Carregando categorias",
-          duration: 2000,
+          duration: 500,
           isClosable: true,
           status: "loading",
         });
@@ -38,7 +38,7 @@ const categoriasSlice = createSlice({
         toast({
           title: "Erro",
           description: "Erro ao buscar categorias",
-          duration: 2000,
+          duration: 500,
           isClosable: true,
           status: "error",
         });
@@ -47,7 +47,7 @@ const categoriasSlice = createSlice({
         toast({
           title: "Sucesso",
           description: "Compra completada",
-          duration: 2000,
+          duration: 500,
           isClosable: true,
           status: "success",
         });
