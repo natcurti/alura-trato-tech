@@ -6,7 +6,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { createStandaloneToast } from "@chakra-ui/react";
 
-const { ToastContainer, toast } = createStandaloneToast();
+const { ToastContainer } = createStandaloneToast();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -14,8 +14,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ToastContainer />
   </Provider>
 );
-
-toast({
-  description: "Unable to create user account.",
-  duration: 2000,
-});
