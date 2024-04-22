@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import itensService from "src/services/itens-service";
 
-const estadoInicial = [];
-
 export const buscarItens = createAsyncThunk(
   "itens/buscar",
   itensService.buscar
@@ -10,7 +8,7 @@ export const buscarItens = createAsyncThunk(
 
 const itensSlice = createSlice({
   name: "itens",
-  initialState: estadoInicial,
+  initialState: [],
   reducers: {
     mudarFavorito: (state, { payload }) => {
       state.map((item) => {

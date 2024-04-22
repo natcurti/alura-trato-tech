@@ -8,6 +8,7 @@ import Button from "src/components/Button";
 export default function Categoria() {
   const navigate = useNavigate();
   const { nomeCategoria } = useParams();
+
   const { categoria, itens } = useSelector((state) => {
     const regexp = new RegExp(state.busca, "i");
 
