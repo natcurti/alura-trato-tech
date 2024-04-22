@@ -4,30 +4,19 @@ import relogio from "src/assets/inicial.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "src/components/Button";
-import { useCallback, useEffect } from "react";
-import instance from "src/common/config/api";
-import { adicionarCategorias } from "src/store/reducers/categorias";
-import { adicionarItens } from "src/store/reducers/itens";
+import { useEffect } from "react";
+import { buscarCategorias } from "src/store/reducers/categorias";
+import { buscarItens } from "src/store/reducers/itens";
 
 export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const categorias = useSelector((state) => state.categorias);
 
-  const buscarCategorias = useCallback(async () => {
-    const resposta = await instance.get("/categorias");
-    dispatch(adicionarCategorias(resposta.data));
-  }, [dispatch]);
-
-  const buscarItens = useCallback(async () => {
-    const resposta = await instance.get("/itens");
-    dispatch(adicionarItens(resposta.data));
-  }, [dispatch]);
-
   useEffect(() => {
-    buscarCategorias();
-    buscarItens();
-  }, [buscarCategorias, buscarItens]);
+    dispatch(buscarCategorias());
+    dispatch(buscarItens());
+  }, [dispatch]);
 
   return (
     <div>
