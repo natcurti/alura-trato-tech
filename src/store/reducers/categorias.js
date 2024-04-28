@@ -6,6 +6,9 @@ import { resetarCarrinho } from "./carrinho";
 const { toast } = createStandaloneToast();
 
 export const carregarCategorias = createAction("categorias/carregarCategorias");
+export const carregarUmaCategoria = createAction(
+  "categorias/carregarUmaCategoria"
+);
 
 export const buscarCategorias = createAsyncThunk(
   "categorias/buscar",
@@ -21,44 +24,15 @@ const categoriasSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(buscarCategorias.fulfilled, (state, { payload }) => {
-        toast({
-          title: "Sucesso!",
-          description: "Categorias carregadas com sucesso.",
-          duration: 1000,
-          isClosable: true,
-          status: "success",
-        });
-        return payload;
-      })
-      .addCase(buscarCategorias.pending, (state, { payload }) => {
-        toast({
-          title: "Carregando",
-          description: "Carregando categorias",
-          duration: 500,
-          isClosable: true,
-          status: "loading",
-        });
-      })
-      .addCase(buscarCategorias.rejected, (state, { payload }) => {
-        toast({
-          title: "Erro",
-          description: "Erro ao buscar categorias",
-          duration: 500,
-          isClosable: true,
-          status: "error",
-        });
-      })
-      .addCase(resetarCarrinho.type, () => {
-        toast({
-          title: "Sucesso",
-          description: "Compra completada",
-          duration: 500,
-          isClosable: true,
-          status: "success",
-        });
+    builder.addCase(resetarCarrinho.type, () => {
+      toast({
+        title: "Sucesso",
+        description: "Compra completada",
+        duration: 500,
+        isClosable: true,
+        status: "success",
       });
+    });
   },
 });
 

@@ -4,8 +4,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./Categoria.module.scss";
 import Item from "src/components/Item";
 import Button from "src/components/Button";
-import { buscarCategorias } from "src/store/reducers/categorias";
+import {
+  buscarCategorias,
+  carregarUmaCategoria,
+} from "src/store/reducers/categorias";
 import { buscarItens } from "src/store/reducers/itens";
+import { useEffect } from "react";
 
 export default function Categoria() {
   const navigate = useNavigate();
@@ -14,11 +18,6 @@ export default function Categoria() {
 
   const { categoria, itens } = useSelector((state) => {
     const regexp = new RegExp(state.busca, "i");
-
-    if (state.categorias.length === 0 && state.itens.length === 0) {
-      dispatch(buscarCategorias());
-      dispatch(buscarItens());
-    }
 
     return {
       categoria:
@@ -29,6 +28,10 @@ export default function Categoria() {
       ),
     };
   });
+
+  useEffect(() => {
+    dispatch(carregarUmaCategoria(nomeCategoria));
+  }, [dispatch, nomeCategoria]);
 
   return (
     <div>
