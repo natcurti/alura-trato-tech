@@ -43,6 +43,8 @@ const criarTarefa = async ({
       status: "error",
     });
   }
+
+  return resposta;
 };
 
 export default criarTarefa;
