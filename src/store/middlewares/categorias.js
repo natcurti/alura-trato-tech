@@ -8,9 +8,9 @@ import {
 import criarTarefa from "./utils/criarTarefa";
 import categoriasService from "src/services/categorias-service";
 
-export const listener = createListenerMiddleware();
+export const categoriasListener = createListenerMiddleware();
 
-listener.startListening({
+categoriasListener.startListening({
   actionCreator: carregarCategorias,
   effect: async (action, { dispatch, fork, unsubscribe }) => {
     const resposta = await criarTarefa({
@@ -28,7 +28,7 @@ listener.startListening({
   },
 });
 
-listener.startListening({
+categoriasListener.startListening({
   actionCreator: carregarUmaCategoria,
   effect: async (action, { dispatch, fork, getState, unsubscribe }) => {
     const { categorias } = getState();
