@@ -42,6 +42,5 @@ function* observarCategorias() {
 
 export function* categoriasSaga() {
   const tarefa = yield takeLatest(carregarCategorias, observarCategorias);
-  console.log(tarefa);
   yield takeLatest(adicionarTodasCategorias, () => tarefa.cancel());
 }
