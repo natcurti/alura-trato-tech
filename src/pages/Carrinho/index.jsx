@@ -9,24 +9,23 @@ const Carrinho = () => {
   const navigate = useNavigate();
 
   const { carrinho, total } = useSelector((state) => {
-    let total = 0;
     const regexp = new RegExp(state.busca, "i");
-    const carrinhoReduce = state.carrinho.reduce((itens, itemNoCarrinho) => {
-      const item = state.itens.find((item) => item.id === itemNoCarrinho.id);
-      if (item) {
-        total += item.preco * itemNoCarrinho.quantidade;
+    const carrinhoReduce = state.carrinho.data.reduce(
+      (itens, itemNoCarrinho) => {
+        const item = state.itens.find((item) => item.id === itemNoCarrinho.id);
         if (item.titulo.match(regexp)) {
           itens.push({
             ...item,
             quantidade: itemNoCarrinho.quantidade,
           });
         }
-      }
-      return itens;
-    }, []);
+        return itens;
+      },
+      []
+    );
     return {
       carrinho: carrinhoReduce,
-      total: total,
+      total: state.carrinho.total,
     };
   });
 
