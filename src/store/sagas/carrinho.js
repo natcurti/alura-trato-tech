@@ -8,14 +8,19 @@ import {
 } from "redux-saga/effects";
 import {
   carregarPagamento,
+  finalizarPagamento,
   mudarCarrinho,
   mudarQuantidade,
   mudarTotal,
+  resetarCarrinho,
 } from "../reducers/carrinho";
 import usuariosService from "src/services/usuarios";
 import cartoesService from "src/services/cartoes";
 import bandeirasService from "src/services/bandeiras";
 import { adicionarUsuario } from "../reducers/usuario";
+import { createStandaloneToast } from "@chakra-ui/react";
+
+const { toast } = createStandaloneToast();
 
 const usuarioLogado = 1;
 
@@ -51,7 +56,30 @@ function* calcularTotal() {
   yield put(mudarTotal(total));
 }
 
+function* finalizarPagamentoSaga({ payload }) {
+  const { valorTotal, formaDePagamento } = payload;
+  if (valorTotal > formaDePagamento.saldo) {
+    return yield toast({
+      title: "Erro",
+      description: "Saldo insuficiente.",
+      duration: 500,
+      isClosable: true,
+      status: "error",
+    });
+  } else {
+    yield toast({
+      title: "Sucesso!",
+      description: "Pagamento feito com sucesso.",
+      duration: 1000,
+      isClosable: true,
+      status: "success",
+    });
+    yield put(resetarCarrinho);
+  }
+}
+
 export function* carrinhoSaga() {
   yield takeLatest(carregarPagamento, carregarPagamentoSaga);
   yield takeEvery([mudarQuantidade, mudarCarrinho], calcularTotal);
+  yield takeLatest(finalizarPagamento, finalizarPagamentoSaga);
 }
